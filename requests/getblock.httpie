@@ -1,0 +1,5 @@
+https -a devuser:devpass \
+  --raw '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockchaininfo", "params": []}' \
+  --verify=no \
+  https://localhost:18556 \
+  "content-type:text/plain;"
