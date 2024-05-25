@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  dev-btcd:
+    image: btcd
+    container_name: dev-btcd
+    build:
+      context: btcd/
+    environment:
+      - RPCUSER
+      - RPCPASS
+      - NETWORK
+      - DEBUG
+      - MINING_ADDRESS
+    volumes:
+      - shared:/rpc
+      - ${TEST_DIR}/btcd:/data
+    ports:
+      - 18555:18555
+    networks:
+      nodes:
+        ipv4_address: 10.5.0.5
+    entrypoint: ["./start-btcd.sh"]
+volumes:
+  shared:
+    driver: local
+networks:
+  nodes:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
